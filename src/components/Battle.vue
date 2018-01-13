@@ -19,7 +19,7 @@ export default {
     }
   },
   created () {
-    axios.get(`http://localhost:5000/`)
+    axios.get(`https://obscure-badlands-97816.herokuapp.com/`)
     .then(response => {
       this.gameData = response.data
     })
