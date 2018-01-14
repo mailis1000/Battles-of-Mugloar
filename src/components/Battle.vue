@@ -3,7 +3,7 @@
     <storm></storm>
     <div>{{ gameData }}</div>
     <div id="knight" style="left:40px; animation-play-state:paused" :class="{ left: toLeft }"/>
-    <div id="dragon" style="animation-play-state:paused"/>
+    <div v-if="gameData.weather.code[0] !== 'SRO'" id="dragon" style="animation-play-state:paused"/>
   </div>
 </template>
 
