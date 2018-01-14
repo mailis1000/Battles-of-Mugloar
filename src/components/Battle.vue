@@ -1,5 +1,6 @@
 <template>
   <div>
+    <storm></storm>
     <div>{{ gameData }}</div>
     <div id="knight" style="left:40px; animation-play-state:paused" :class="{ left: toLeft }"/>
     <div id="dragon" style="animation-play-state:paused"/>
@@ -9,14 +10,19 @@
 <script>
 import axios from 'axios'
 
+import Storm from './weather/Storm'
+
 export default {
-  name: 'Battle',
+  name: 'battle',
   data () {
     return {
       gameData: {},
       errors: [],
       toLeft: false
     }
+  },
+  components: {
+    Storm
   },
   created () {
     axios.get(`https://obscure-badlands-97816.herokuapp.com/`)
