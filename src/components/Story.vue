@@ -46,10 +46,7 @@
     z-index: 3;
     h1 {
       z-index: 12;
-      text-shadow: 0 0 3px #000;
-      color: #fff;
       padding: 30px;
-      font-family: "Courier";
     }
 
     #text {

@@ -19,12 +19,14 @@ export default {
 <style>
 body {
   margin: 0;
+  font-size: 16px;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Courier";
+  text-shadow: 0 0 3px #000;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
 }
 </style>

@@ -104,7 +104,7 @@ export default {
   right: 0;
   margin: auto;
 }
-.loading, .before-game {
+.loading, .before-game, .result {
   position: absolute;
   top: 0;
   left: 0;
