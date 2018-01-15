@@ -13,7 +13,7 @@
       return {
         start: true,
         txtFrom: 0,
-        speed: 50,
+        speed: 100,
         txt: ''
       }
     },
@@ -40,12 +40,15 @@
 </script>
 <style lang="scss" scoped>
   h1 {
+    position: absolute;
+    margin: 0;
+    z-index: 12;
     text-shadow: 0 0 3px #000;
     color: #fff;
     padding: 30px;
     font-family: "Courier";
   }
-  
+
   #text {
     display: none;
   }
