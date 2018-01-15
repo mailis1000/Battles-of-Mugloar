@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="loading" v-if="!loaded">
+    <div class="loading" v-if="!this.loaded">
       <vue-loading spinner="circles"></vue-loading>
     </div>
     <div v-else>
@@ -8,15 +8,15 @@
         <story><slot>Once upon a time.</slot></story>
         <help v-if="this.storyEnd"></help>
       </div>
-      <storm v-if="gameData.weather.code[0] === 'SRO'"></storm>
+      <result v-if="!knightAlive"></result>
+      <storm v-if="this.weather.code[0] === 'SRO'"></storm>
       <div id="knight" style="left:40px; animation-play-state:paused" :class="{ left: toLeft }"/>
-      <div v-if="gameData.weather.code[0] !== 'SRO'" id="dragon" style="animation-play-state:paused"/>
+      <div v-if="this.weather.code[0] !== 'SRO'" id="dragon" style="animation-play-state:paused"/>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import VueLoading from 'vue-simple-loading'
 
 import { mapState, mapActions } from 'vuex'
@@ -24,6 +24,7 @@ import { mapState, mapActions } from 'vuex'
 import Storm from './weather/Storm'
 import Story from './Story'
 import Help from './Help'
+import Result from './Result'
 
 import walking from '../assets/sound/walking.mp3'
 
@@ -31,38 +32,30 @@ export default {
   name: 'battle',
   data () {
     return {
-      loaded: false,
-      gameData: {},
       errors: [],
       toLeft: false,
       audio: new Audio(walking)
     }
   },
   computed: {
-    ...mapState(['gameStarted', 'storyEnd'])
+    ...mapState(['loaded', 'weather', 'gameStarted', 'storyEnd', 'knightAlive'])
   },
   components: {
     VueLoading,
     Storm,
     Story,
-    Help
+    Help,
+    Result
   },
   created () {
-    axios.get(`https://obscure-badlands-97816.herokuapp.com/`)
-    .then(response => {
-      this.gameData = response.data
-      this.loaded = true
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+    this.getData()
   },
   mounted () {
     this.move()
     // this.$store.dispatch('startGame')
   },
   methods: {
-    ...mapActions(['startGame', 'killKnight']),
+    ...mapActions(['getData', 'startGame', 'killKnight']),
     move () {
       window.addEventListener('keydown', (event) => {
         var element = document.getElementById('knight')
