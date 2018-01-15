@@ -23,21 +23,18 @@
     },
     mounted () {
       this.txt = document.getElementById('text').textContent
-      if (!this.storyEnd) {
-        this.typeWriter().then(() => {
-          this.endStory()
-          console.log('yay')
-        })
-      }
+      !this.storyEnd && this.typeWriter()
     },
     methods: {
       ...mapActions(['endStory']),
       typeWriter () {
         return new Promise((resolve, reject) => {
-          document.getElementById('typeText').innerHTML += this.txt.charAt(this.txtFrom)
-          this.txtFrom++
-          setTimeout(this.typeWriter, this.speed)
-          resolve()
+          if (this.txtFrom < this.txt.length) {
+            document.getElementById('typeText').innerHTML += this.txt.charAt(this.txtFrom)
+            this.txtFrom++
+            setTimeout(this.typeWriter, this.speed)
+          }
+          (this.txtFrom === this.txt.length) && this.endStory()
         })
       }
     }

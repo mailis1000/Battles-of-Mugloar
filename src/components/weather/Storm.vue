@@ -236,10 +236,6 @@
   left: 0;
 }
 
-html {
-  box-sizing: border-box;
-}
-
 *,
 *:before,
 *:after {
@@ -248,7 +244,6 @@ html {
   padding: 0;
 }
 
-html,
 .thunder,
 canvas {
   @include size(100%);

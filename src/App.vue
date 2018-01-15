@@ -27,17 +27,4 @@ body {
   text-align: center;
   color: #2c3e50;
 }
-
-@media(max-width:1260px) {
-  #app {
-    width: 800px;
-    height: 400px;
-  }
-}
-@media(max-width:860px) {
-  #app {
-    width: 600px;
-    height: 350px;
-  }
-}
 </style>

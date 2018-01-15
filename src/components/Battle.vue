@@ -4,8 +4,10 @@
       <vue-loading spinner="circles"></vue-loading>
     </div>
     <div v-else>
-      <story v-if="!this.gameStarted"><slot>Once upon a time.</slot></story>
-      <help v-if="this.storyEnd"></help>
+      <div v-if="!this.gameStarted" class="before-game">
+        <story><slot>Once upon a time.</slot></story>
+        <help v-if="this.storyEnd"></help>
+      </div>
       <storm v-if="gameData.weather.code[0] === 'SRO'"></storm>
       <div id="knight" style="left:40px; animation-play-state:paused" :class="{ left: toLeft }"/>
       <div v-if="gameData.weather.code[0] !== 'SRO'" id="dragon" style="animation-play-state:paused"/>
@@ -60,16 +62,16 @@ export default {
     // this.$store.dispatch('startGame')
   },
   methods: {
-    ...mapActions(['startGame']),
+    ...mapActions(['startGame', 'killKnight']),
     move () {
       window.addEventListener('keydown', (event) => {
-        (!this.gameStarted) && this.startGame()
         var element = document.getElementById('knight')
         var left = parseInt(element.style.left)
         if (left < 800) {
           if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             (this.audio.paused || !this.audio.duration < 0) && this.audio.play()
             element.style.animationPlayState = 'running'
+            !this.gameStarted && this.startGame()
             document.addEventListener('keyup', () => {
               element.style.animationPlayState = 'paused'
               this.audio.pause()
@@ -85,6 +87,7 @@ export default {
           }
         } else {
           document.getElementById('dragon').style.animationPlayState = 'running'
+          this.killKnight()
         }
       })
     }
@@ -108,10 +111,16 @@ export default {
   right: 0;
   margin: auto;
 }
-.loading {
+.loading, .before-game {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .vue-loading-container {
   position: absolute;
@@ -154,9 +163,6 @@ export default {
 @keyframes animDragon {
   0% { background-position: -8000px; }
 }
-h1, h2 {
-  font-weight: normal;
-}
 ul {
   list-style-type: none;
   padding: 0;
@@ -165,7 +171,10 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
+@media(max-width:1260px) {
+  .container {
+    width: 800px;
+    height: 400px;
+  }
 }
 </style>
