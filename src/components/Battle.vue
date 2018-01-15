@@ -4,7 +4,8 @@
       <vue-loading spinner="circles"></vue-loading>
     </div>
     <div v-else>
-      <story><slot>{{ gameData.fighters.knight.name }}</slot></story>
+      <story v-if="!this.gameStarted"><slot>Once upon a time.</slot></story>
+      <help v-if="this.storyEnd"></help>
       <storm v-if="gameData.weather.code[0] === 'SRO'"></storm>
       <div id="knight" style="left:40px; animation-play-state:paused" :class="{ left: toLeft }"/>
       <div v-if="gameData.weather.code[0] !== 'SRO'" id="dragon" style="animation-play-state:paused"/>
@@ -16,8 +17,11 @@
 import axios from 'axios'
 import VueLoading from 'vue-simple-loading'
 
+import { mapState, mapActions } from 'vuex'
+
 import Storm from './weather/Storm'
 import Story from './Story'
+import Help from './Help'
 
 import walking from '../assets/sound/walking.mp3'
 
@@ -32,10 +36,14 @@ export default {
       audio: new Audio(walking)
     }
   },
+  computed: {
+    ...mapState(['gameStarted', 'storyEnd'])
+  },
   components: {
     VueLoading,
     Storm,
-    Story
+    Story,
+    Help
   },
   created () {
     axios.get(`https://obscure-badlands-97816.herokuapp.com/`)
@@ -47,31 +55,39 @@ export default {
       this.errors.push(e)
     })
   },
-  mounted: function () {
-    window.addEventListener('keydown', (event) => {
-      var element = document.getElementById('knight')
-      var left = parseInt(element.style.left)
-      if (left < 800) {
-        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-          (this.audio.paused || !this.audio.duration < 0) && this.audio.play()
-          element.style.animationPlayState = 'running'
-          document.addEventListener('keyup', () => {
-            element.style.animationPlayState = 'paused'
-            this.audio.pause()
-          })
+  mounted () {
+    this.move()
+    // this.$store.dispatch('startGame')
+  },
+  methods: {
+    ...mapActions(['startGame']),
+    move () {
+      window.addEventListener('keydown', (event) => {
+        (!this.gameStarted) && this.startGame()
+        var element = document.getElementById('knight')
+        var left = parseInt(element.style.left)
+        if (left < 800) {
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            (this.audio.paused || !this.audio.duration < 0) && this.audio.play()
+            element.style.animationPlayState = 'running'
+            document.addEventListener('keyup', () => {
+              element.style.animationPlayState = 'paused'
+              this.audio.pause()
+            })
+          }
+          if (event.key === 'ArrowLeft' && left > 30) {
+            element.style.left = (element.style.left = left - 3 + 'px')
+            this.toLeft = true
+          }
+          if (event.key === 'ArrowRight') {
+            element.style.left = left + 3 + 'px'
+            this.toLeft = false
+          }
+        } else {
+          document.getElementById('dragon').style.animationPlayState = 'running'
         }
-        if (event.key === 'ArrowLeft' && left > 30) {
-          element.style.left = (element.style.left = left - 3 + 'px')
-          this.toLeft = true
-        }
-        if (event.key === 'ArrowRight') {
-          element.style.left = left + 3 + 'px'
-          this.toLeft = false
-        }
-      } else {
-        document.getElementById('dragon').style.animationPlayState = 'running'
-      }
-    })
+      })
+    }
   }
 }
 </script>

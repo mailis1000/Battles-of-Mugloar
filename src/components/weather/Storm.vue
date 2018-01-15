@@ -260,7 +260,8 @@ canvas {
   background-position: 0 0;
   background-repeat: no-repeat;
   position: absolute;
-  z-index: 10;
+  z-index: 1;
+  top: 0;
   &:after {
     content: '';
     @include size(100%);

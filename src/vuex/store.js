@@ -5,8 +5,16 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    count: 0,
-    test: true
+    gameStarted: false,
+    storyEnd: false
+  },
+  actions: {
+    startGame: ({commit}) => (commit('START_GAME', true)),
+    endStory: ({commit}) => (commit('END_STORY', true))
+  },
+  mutations: {
+    START_GAME: (state, payload) => (state.gameStarted = payload),
+    END_STORY: (state, payload) => (state.storyEnd = payload)
   }
 })
 
