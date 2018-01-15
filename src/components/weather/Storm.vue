@@ -6,16 +6,10 @@
   </div>
 </template>
 <script>
-  import thunder from './thunder.mp3'
+  import thunder from './../../assets/sound/thunder.mp3'
 
   export default {
     name: 'storm',
-    loaders: [
-      {
-        test: /\.wav$|\.mp3$/,
-        loader: 'file-loader'
-      }
-    ],
     mounted () { // TODO: Convert this as a normal Vue component
       var canvas1 = document.getElementById('canvas1')
       var canvas2 = document.getElementById('canvas2')
@@ -88,9 +82,7 @@
 
       var createLightning = () => {
         console.log('light')
-        let aud = new Audio(thunder)
-        aud.play()
-        // this.playSound(URL.createObjectURL('./thunder.mp3'))
+        new Audio(thunder).play()
 
         var x = random(100, w - 100)
         var y = random(0, h / 4)

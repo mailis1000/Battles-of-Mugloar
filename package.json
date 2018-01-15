@@ -13,10 +13,15 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "typewriting": "^1.2.7",
     "vue": "^2.5.2",
     "vue-audio": "0.0.10",
     "vue-axios": "^2.0.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-simple-loading": "^1.1.5",
+    "vue-type-writer": "^0.2.1",
+    "vue-typewriter": "^2.2.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

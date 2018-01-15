@@ -1,12 +1,18 @@
 <template>
   <div id="app">
     <router-view/>
+    <!-- <div>{{ count }}</div> -->
   </div>
 </template>
 
 <script>
+// import { mapState } from 'vuex'
+
 export default {
   name: 'app'
+  // computed: {
+  //   ...mapState(['count'])
+  // }
 }
 </script>
 
@@ -20,18 +26,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  width: 1200px;
-  height: 600px;
-  background-image: url('./assets/game-images/bg-normal.jpg');
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
 }
 
 @media(max-width:1260px) {
