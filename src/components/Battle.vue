@@ -4,7 +4,7 @@
       <vue-loading spinner="circles"></vue-loading>
     </div>
     <div v-else>
-      <story></story>
+      <story><slot>{{ gameData.fighters.knight.name }}</slot></story>
       <storm v-if="gameData.weather.code[0] === 'SRO'"></storm>
       <div id="knight" style="left:40px; animation-play-state:paused" :class="{ left: toLeft }"/>
       <div v-if="gameData.weather.code[0] !== 'SRO'" id="dragon" style="animation-play-state:paused"/>
