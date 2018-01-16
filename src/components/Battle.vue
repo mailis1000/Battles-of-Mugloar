@@ -8,8 +8,12 @@
         <story><slot>Once upon a time.</slot></story>
         <help v-if="this.storyEnd"></help>
       </div>
+      <div v-else>
+        <storm v-if="this.weather.code[0] === 'SRO'"></storm>
+        <fog></fog>
+        <long-dry v-if="this.weather.code[0] === 'T E'"></long-dry>
+      </div>
       <result v-if="!knightAlive"></result>
-      <storm v-if="this.weather.code[0] === 'SRO'"></storm>
       <knight></knight>
       <dragon v-if="this.weather.code[0] !== 'SRO'"></dragon>
     </div>
@@ -25,6 +29,8 @@ import Knight from './fighters/Knight'
 import Dragon from './fighters/Dragon'
 
 import Storm from './weather/Storm'
+import Fog from './weather/Fog'
+import LongDry from './weather/LongDry'
 
 import Story from './Story'
 import Help from './Help'
@@ -45,6 +51,8 @@ export default {
     Knight,
     Dragon,
     Storm,
+    Fog,
+    LongDry,
     Story,
     Help,
     Result
