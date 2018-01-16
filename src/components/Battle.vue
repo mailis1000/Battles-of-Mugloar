@@ -11,7 +11,7 @@
       <result v-if="!knightAlive"></result>
       <storm v-if="this.weather.code[0] === 'SRO'"></storm>
       <knight></knight>
-      <div v-if="this.weather.code[0] !== 'SRO'" id="dragon" style="animation-play-state:paused"/>
+      <dragon v-if="this.weather.code[0] !== 'SRO'"></dragon>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ import VueLoading from 'vue-simple-loading'
 import { mapState, mapActions } from 'vuex'
 
 import Knight from './fighters/Knight'
+import Dragon from './fighters/Dragon'
 
 import Storm from './weather/Storm'
 
@@ -42,6 +43,7 @@ export default {
   components: {
     VueLoading,
     Knight,
+    Dragon,
     Storm,
     Story,
     Help,
@@ -72,57 +74,45 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  width: 1200px;
-  height: 600px;
-  background-image: url('./../assets/game-images/bg-normal.jpg');
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
-.loading, .before-game, .result {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 4;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.vue-loading-container {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  margin: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-#dragon {
-  position: absolute;
-  right: 0;
-  bottom: 40px;
-  width: 400px;
-  height: 216px;
-  background: url('./../assets/fighters/Dragon.png') left center;
-  animation: animDragon 1.5s steps(10) forwards;
-}
-@keyframes animDragon {
-  0% { background-position: -8000px; }
-}
-@media(max-width:1260px) {
   .container {
-    width: 800px;
-    height: 400px;
+    width: 1200px;
+    height: 600px;
+    background-image: url('./../assets/game-images/bg-normal.jpg');
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
   }
-}
+  .loading, .before-game, .result {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .vue-loading-container {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  @media(max-width:1260px) {
+    .container {
+      width: 800px;
+      height: 400px;
+    }
+  }
 </style>
