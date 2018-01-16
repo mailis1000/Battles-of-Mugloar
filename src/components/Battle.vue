@@ -10,7 +10,7 @@
       </div>
       <div v-else>
         <storm v-if="this.weather.code[0] === 'SRO'"></storm>
-        <fog v-if="this.weather.code[0] === 'FUNDEFINEDG'"></fog>
+        <fog></fog>
         <long-dry v-if="this.weather.code[0] === 'T E'"></long-dry>
         <flood v-if="this.weather.code[0] === 'HVA'"></flood>
       </div>

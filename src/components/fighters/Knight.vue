@@ -1,5 +1,9 @@
 <template>
-  <div id="knight" style="left:40px; animation-play-state:paused" :class="{ left: toLeft }"/>
+  <div 
+    id="knight" 
+    style="left:40px; animation-play-state:paused" 
+    :class="{ left: toLeft }"
+  />
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -52,9 +56,9 @@ export default {
   #knight {
     position: absolute;
     width: 100px;
-    height: 109px;
+    height: 120.6px;
     bottom: 40px;
-    background: url('./../../assets/fighters/Knight.png') left center;
+    background: url('./../../assets/fighters/Knight3.png') center top;
     animation: animKnight 1.0s steps(10) infinite;
   }
   #knight.left {
@@ -66,6 +70,6 @@ export default {
     -ms-filter: "FlipH";
   }
   @keyframes animKnight {
-    0% { background-position: -6000px; }
+    0% { background-position: 0 -1206px; }
   }
 </style>
