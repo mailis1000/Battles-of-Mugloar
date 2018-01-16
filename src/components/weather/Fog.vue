@@ -4,7 +4,7 @@
 <script>
 export default {
   name: 'fog',
-  mounted () {
+  mounted () { // TODO: Convert this as a normal Vue component
     var particles = []
 
     var particleCount = 30

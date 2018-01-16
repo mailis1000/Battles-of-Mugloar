@@ -10,12 +10,13 @@
       </div>
       <div v-else>
         <storm v-if="this.weather.code[0] === 'SRO'"></storm>
-        <fog></fog>
+        <fog v-if="this.weather.code[0] === 'FUNDEFINEDG'"></fog>
         <long-dry v-if="this.weather.code[0] === 'T E'"></long-dry>
+        <flood v-if="this.weather.code[0] === 'HVA'"></flood>
       </div>
-      <result v-if="!knightAlive"></result>
       <knight></knight>
       <dragon v-if="this.weather.code[0] !== 'SRO'"></dragon>
+      <result v-if="!knightAlive"></result>
     </div>
   </div>
 </template>
@@ -31,6 +32,7 @@ import Dragon from './fighters/Dragon'
 import Storm from './weather/Storm'
 import Fog from './weather/Fog'
 import LongDry from './weather/LongDry'
+import Flood from './weather/Flood'
 
 import Story from './Story'
 import Help from './Help'
@@ -53,6 +55,7 @@ export default {
     Storm,
     Fog,
     LongDry,
+    Flood,
     Story,
     Help,
     Result

@@ -1,5 +1,5 @@
 <template>
-  <div class="thunder">
+  <div :class="{lightning: this.lightning}" class="thunder">
     <canvas id="canvas1"></canvas>
     <canvas id="canvas2"></canvas>
     <canvas id="canvas3"></canvas>
@@ -205,10 +205,12 @@
       }
       init()
 
-      function animloop () {
+      let animloop = () => {
         animateRainTrough()
         animateRain()
-        animateLightning()
+        if (this.lightning) {
+          animateLightning()
+        }
         requestAnimationFrame(animloop)
       }
       animloop()
@@ -219,6 +221,12 @@
           var audio = new Audio(sound)
           audio.play()
         }
+      }
+    },
+    props: {
+      lightning: {
+        type: Boolean,
+        default: true
       }
     }
   }
@@ -257,13 +265,16 @@ canvas {
   position: absolute;
   z-index: 1;
   top: 0;
-  &:after {
+  &:not(.lightning):after {
     content: '';
     @include size(100%);
     @include abs-pos;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 1;
+  }
+  &.lightning:after {
     animation: thunder-bg 6s infinite;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }
 
