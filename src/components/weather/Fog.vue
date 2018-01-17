@@ -19,16 +19,20 @@ export default {
     this.createFog()
   },
   methods: {
-    createFog () {
+    createImage () {
       var imageObj = new Image()
-
       imageObj.onload = () => {
         this.particles.forEach((particle) => {
           particle.setImage(imageObj)
         })
       }
-
       imageObj.src = this.image
+    },
+    generateRandom (min, max) {
+      return Math.random() * (max - min) + min
+    },
+    createFog () {
+      this.createImage()
 
       function Particle (context) {
         this.x = 0
@@ -68,9 +72,6 @@ export default {
           this.image = image
         }
       }
-      function generateRandom (min, max) {
-        return Math.random() * (max - min) + min
-      }
       var context
       let init = () => {
         var canvas = document.getElementById('fog')
@@ -78,8 +79,8 @@ export default {
           context = canvas.getContext('2d')
           for (var i = 0; i < this.particleCount; ++i) {
             var particle = new Particle(context)
-            particle.setPosition(generateRandom(0, this.canvasWidth), generateRandom(0, this.canvasHeight))
-            particle.setVelocity(generateRandom(-this.maxVelocity, this.maxVelocity), generateRandom(-this.maxVelocity, this.maxVelocity))
+            particle.setPosition(this.generateRandom(0, this.canvasWidth), this.generateRandom(0, this.canvasHeight))
+            particle.setVelocity(this.generateRandom(-this.maxVelocity, this.maxVelocity), this.generateRandom(-this.maxVelocity, this.maxVelocity))
             this.particles.push(particle)
           }
         }

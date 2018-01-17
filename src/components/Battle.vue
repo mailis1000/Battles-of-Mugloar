@@ -10,13 +10,13 @@
       </div>
       <div v-else>
         <storm v-if="this.weather.code[0] === 'SRO'"></storm>
-        <fog></fog>
+        <fog v-if="this.weather.code[0] === 'FUNDEFINEDG'"></fog>
         <long-dry v-if="this.weather.code[0] === 'T E'"></long-dry>
         <flood v-if="this.weather.code[0] === 'HVA'"></flood>
       </div>
       <knight></knight>
-      <dragon v-if="this.weather.code[0] !== 'SRO'"></dragon>
-      <result v-if="!knightAlive"></result>
+      <dragon v-if="this.weather.code[0] !== 'SRO'" :class="{ stand, fight }"></dragon>
+      <result v-if="knightDead"></result>
     </div>
   </div>
 </template>
@@ -42,7 +42,10 @@ export default {
   name: 'battle',
   data () {
     return {
-      errors: []
+      errors: [],
+      stand: true,
+      fight: false,
+      knightDead: false
     }
   },
   computed: {
@@ -71,12 +74,14 @@ export default {
     gameActions () {
       window.addEventListener('keydown', (event) => {
         var left = parseInt(document.getElementById('knight').style.left)
-        if (left < 800) {
+        if (left < 400) {
           if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             !this.gameStarted && this.startGame()
           }
         } else {
-          document.getElementById('dragon').style.animationPlayState = 'running'
+          this.stand = false
+          this.fight = true
+          setTimeout(() => { this.knightDead = true }, 2000)
         }
       })
     }

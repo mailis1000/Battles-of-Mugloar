@@ -1,12 +1,17 @@
 <template>
   <div 
     id="knight" 
-    style="left:40px; animation-play-state:paused" 
-    :class="{ left: toLeft }"
+    style="left:40px" 
+    :class="{ 
+      left: left, 
+      stand, 
+      walk, 
+      die: !this.knightAlive
+    }"
   />
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import walking from './../../assets/sound/walking.mp3'
 
@@ -14,9 +19,14 @@ export default {
   name: 'knight',
   data () {
     return {
-      toLeft: false,
+      left: false,
+      stand: true,
+      walk: false,
       audio: new Audio(walking)
     }
+  },
+  computed: {
+    ...mapState(['knightAlive'])
   },
   mounted () {
     this.knightWalk()
@@ -27,24 +37,28 @@ export default {
       window.addEventListener('keydown', (event) => {
         var element = document.getElementById('knight')
         var left = parseInt(element.style.left)
-        if (left < 800) {
+        if (left < 400) {
           if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             (this.audio.paused || !this.audio.duration < 0) && this.audio.play()
-            element.style.animationPlayState = 'running'
+            this.stand = false
+            this.walk = true
             document.addEventListener('keyup', () => {
-              element.style.animationPlayState = 'paused'
+              this.stand = true
+              this.walk = false
               this.audio.pause()
             })
           }
           if (event.key === 'ArrowLeft' && left > 30) {
             element.style.left = (element.style.left = left - 3 + 'px')
-            this.toLeft = true
+            this.left = true
           }
           if (event.key === 'ArrowRight') {
             element.style.left = left + 3 + 'px'
-            this.toLeft = false
+            this.left = false
           }
         } else {
+          this.stand = false
+          this.walk = false
           this.killKnight()
         }
       })
@@ -55,11 +69,24 @@ export default {
 <style lang="scss" scoped>
   #knight {
     position: absolute;
-    width: 100px;
-    height: 120.6px;
-    bottom: 40px;
-    background: url('./../../assets/fighters/Knight3.png') center top;
-    animation: animKnight 1.0s steps(10) infinite;
+    width: 200px;
+    bottom: 0;
+    animation-play-state: running;
+    &.stand, &.walk {
+      height: 200.4px;
+      animation: animKnight 1.0s steps(10) infinite;
+    }
+    &.stand {
+      background: url('./../../assets/fighters/stand.png') center top;
+    }
+    &.walk {
+      background: url('./../../assets/fighters/walk.png') center top;
+    }
+    &.die {
+      height: 187.2px;
+      background: url('./../../assets/fighters/die.png') center top;
+      animation: animDeath 1.0s steps(10) forwards;
+    }
   }
   #knight.left {
     -moz-transform: scaleX(-1);
@@ -70,6 +97,9 @@ export default {
     -ms-filter: "FlipH";
   }
   @keyframes animKnight {
-    0% { background-position: 0 -1206px; }
+    0% { background-position: 0 -2004px; }
+  }
+  @keyframes animDeath {
+    100% { background-position: 0 -1872px; }
   }
 </style>

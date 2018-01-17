@@ -1,5 +1,5 @@
 <template>
-  <div id="dragon" style="animation-play-state:paused"/>
+  <div id="dragon"/>
 </template>
 <script>
 export default {
@@ -11,12 +11,22 @@ export default {
     position: absolute;
     right: 0;
     bottom: 40px;
-    width: 400px;
-    height: 216px;
-    background: url('./../../assets/fighters/Dragon.png') left center;
-    animation: animDragon 1.5s steps(10) forwards;
+    width: 554px;
+    height: 245px;
+    animation-play-state: running;
+    &.stand {
+      background: url('./../../assets/fighters/drag-idle.png') left center;
+      animation: animDragon .8s steps(6) infinite;
+    }
+    &.fight {
+      background: url('./../../assets/fighters/drag-attack.png') left center;
+      animation: animFight 3s steps(56) forwards;
+    }
   }
   @keyframes animDragon {
-    0% { background-position: -8000px; }
+    0% { background-position: -3324px; }
+  }
+  @keyframes animFight {
+    0% { background-position: 31024px; }
   }
 </style>
