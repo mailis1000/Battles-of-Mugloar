@@ -5,7 +5,8 @@
     :class="{ 
       left: left, 
       stand, 
-      walk, 
+      walk,
+      umbrella: this.weather.code[0] === 'HVA',
       die: !this.knightAlive
     }"
   />
@@ -26,7 +27,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['knightAlive'])
+    ...mapState(['knightAlive', 'weather'])
   },
   mounted () {
     this.knightWalk()
@@ -87,14 +88,28 @@ export default {
       background: url('./../../assets/fighters/die.png') center top;
       animation: animDeath 1.0s steps(10) forwards;
     }
-  }
-  #knight.left {
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
+    &.left {
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+      filter: FlipH;
+      -ms-filter: "FlipH";
+    }
+    &.umbrella {
+      bottom: 70px;
+      &:after {
+        content: '';
+        background: url('./../../assets/weather/umbrella.png');
+        display: block;
+        width: 350px;
+        height: 300px;
+        background-position: center bottom;
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin-top: -30px;
+      }
+    }
   }
   @keyframes animKnight {
     0% { background-position: 0 -2004px; }

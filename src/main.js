@@ -3,11 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Typewriter from 'vue-typewriter'
 
 import store from './vuex/store.js'
-
-Vue.use(Typewriter)
 
 Vue.config.productionTip = false
 

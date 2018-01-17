@@ -103,6 +103,7 @@ export default {
     left: 0;
     right: 0;
     margin: auto;
+    overflow: hidden;
   }
   .loading, .before-game, .result {
     position: absolute;

@@ -24,7 +24,7 @@ export default {
     height: 100%;
   }
   .flood > .wave{
-    background-image: url('./../../assets/ocean-wave.png');
+    background-image: url('./../../assets/weather/ocean-wave.png');
     background-position: bottom;
     background-repeat: repeat-x;
     background-size: contain;
