@@ -5,7 +5,7 @@
     </div>
     <div v-else>
       <div v-if="!gameStarted" class="before-game">
-        <story><slot>Once upon a time, there lived knight {{ knight.name }}. He wanted to go and save a beautiful princess and he knew that the princess is protected by dragons, who are trained by Mailis, who was the best dragon trainer in the whole wide world. He still wanted to go and save the princess. So his journey begins.</slot></story>
+        <story :storyText="`Once upon a time, there lived knight ${ knight.name }. He wanted to go and save a beautiful princess and he knew that the princess is protected by dragons, who are trained by Mailis, who was the best dragon trainer in the whole wide world. He still wanted to go and save the princess. So his journey begins.`"></story>
         <help v-if="storyEnd"></help>
       </div>
       <div v-else>

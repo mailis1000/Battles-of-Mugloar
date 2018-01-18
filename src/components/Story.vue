@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="story">
-      <h1 id="text"><slot></slot></h1>
       <h1 id="typeText"></h1>
     </div>
   </div>
@@ -14,27 +13,28 @@
     data () {
       return {
         txtFrom: 0,
-        speed: 100,
-        txt: ''
+        speed: 100
       }
+    },
+    props: {
+      storyText: String
     },
     computed: {
       ...mapState(['gameStarted', 'storyEnd'])
     },
     mounted () {
-      this.txt = document.getElementById('text').textContent
       !this.storyEnd && this.typeWriter()
     },
     methods: {
       ...mapActions(['endStory']),
       typeWriter () {
         return new Promise((resolve, reject) => {
-          if (this.txtFrom < this.txt.length) {
-            document.getElementById('typeText').innerHTML += this.txt.charAt(this.txtFrom)
+          if (this.txtFrom < this.storyText.length) {
+            document.getElementById('typeText').innerHTML += this.storyText.charAt(this.txtFrom)
             this.txtFrom++
             setTimeout(this.typeWriter, this.speed)
           }
-          (this.txtFrom === this.txt.length) && this.endStory()
+          (this.txtFrom === this.storyText.length) && this.endStory()
         })
       }
     }
@@ -47,10 +47,6 @@
     h1 {
       z-index: 12;
       padding: 30px;
-    }
-
-    #text {
-      display: none;
     }
   }
 </style>
