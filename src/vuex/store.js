@@ -18,7 +18,7 @@ const store = new Vuex.Store({
     knightAlive: true
   },
   getters: {
-    getWeatherMessage: state => state.weather.message[0]
+    getWeatherMessage: state => state.weather.message
   },
   actions: {
     getData: ({commit}, payload) => {

@@ -9,13 +9,13 @@
         <help v-if="storyEnd"></help>
       </div>
       <div v-else>
-        <storm v-if="weather.code[0] === 'SRO'"></storm>
-        <fog v-if="weather.code[0] === 'FUNDEFINEDG'"></fog>
-        <long-dry v-if="weather.code[0] === 'T E'"></long-dry>
-        <flood v-if="weather.code[0] === 'HVA'"></flood>
+        <storm v-if="weather.code === 'SRO'"></storm>
+        <fog v-if="weather.code === 'FUNDEFINEDG'"></fog>
+        <long-dry v-if="weather.code === 'T E'"></long-dry>
+        <flood v-if="weather.code === 'HVA'"></flood>
       </div>
       <knight></knight>
-      <dragon v-if="weather.code[0] !== 'SRO'" :class="{ stand, fight }"></dragon>
+      <dragon v-if="weather.code !== 'SRO'" :class="{ stand, fight }"></dragon>
       <result v-if="!knightAlive"></result>
     </div>
   </div>

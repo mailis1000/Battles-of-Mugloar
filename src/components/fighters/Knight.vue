@@ -6,7 +6,7 @@
       left: left, 
       stand, 
       walk,
-      umbrella: weather.code[0] === 'HVA',
+      umbrella: weather.code === 'HVA',
       die: !knightAlive
     }"
   />
@@ -57,7 +57,7 @@ export default {
             element.style.left = left + 3 + 'px'
             this.left = false
           }
-          if (this.weather.code[0] === 'SRO') {
+          if (this.weather.code === 'SRO') {
             setTimeout(() => { this.knightKill() }, 6000)
           }
         } else {
