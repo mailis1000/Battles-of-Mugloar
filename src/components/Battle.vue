@@ -1,22 +1,22 @@
 <template>
   <div class="container">
-    <div class="loading" v-if="!this.loaded">
+    <div class="loading" v-if="!loaded">
       <vue-loading spinner="circles"></vue-loading>
     </div>
     <div v-else>
-      <div v-if="!this.gameStarted" class="before-game">
-        <story><slot>Once upon a time.</slot></story>
-        <help v-if="this.storyEnd"></help>
+      <div v-if="!gameStarted" class="before-game">
+        <story><slot>Once upon a time, there lived knight {{ knight.name }}. He wanted to go and save a beautiful princess and he knew that the princess is protected by dragons, who are trained by Mailis, who was the best dragon trainer in the whole wide world. He still wanted to go and save the princess. So his journey begins.</slot></story>
+        <help v-if="storyEnd"></help>
       </div>
       <div v-else>
-        <storm v-if="this.weather.code[0] === 'SRO'"></storm>
-        <fog v-if="this.weather.code[0] === 'FUNDEFINEDG'"></fog>
-        <long-dry v-if="this.weather.code[0] === 'T E'"></long-dry>
-        <flood v-if="this.weather.code[0] === 'HVA'"></flood>
+        <storm v-if="weather.code[0] === 'SRO'"></storm>
+        <fog v-if="weather.code[0] === 'FUNDEFINEDG'"></fog>
+        <long-dry v-if="weather.code[0] === 'T E'"></long-dry>
+        <flood v-if="weather.code[0] === 'HVA'"></flood>
       </div>
       <knight></knight>
-      <dragon v-if="this.weather.code[0] !== 'SRO'" :class="{ stand, fight }"></dragon>
-      <result v-if="knightDead"></result>
+      <dragon v-if="weather.code[0] !== 'SRO'" :class="{ stand, fight }"></dragon>
+      <result v-if="!knightAlive"></result>
     </div>
   </div>
 </template>
@@ -38,6 +38,9 @@ import Story from './Story'
 import Help from './Help'
 import Result from './Result'
 
+import bgSound from './../assets/sound/bg-sounds.mp3'
+import roar from './../assets/sound/roar.mp3'
+
 export default {
   name: 'battle',
   data () {
@@ -45,11 +48,12 @@ export default {
       errors: [],
       stand: true,
       fight: false,
-      knightDead: false
+      audio: new Audio(bgSound),
+      roar: new Audio(roar)
     }
   },
   computed: {
-    ...mapState(['loaded', 'weather', 'gameStarted', 'storyEnd', 'knightAlive'])
+    ...mapState(['knight', 'loaded', 'weather', 'gameStarted', 'storyEnd', 'knightAlive'])
   },
   components: {
     VueLoading,
@@ -68,20 +72,22 @@ export default {
   },
   mounted () {
     this.gameActions()
+    this.audio.loop = true
+    this.audio.play()
   },
   methods: {
-    ...mapActions(['getData', 'startGame', 'killKnight']),
+    ...mapActions(['getData', 'startGame']),
     gameActions () {
       window.addEventListener('keydown', (event) => {
         var left = parseInt(document.getElementById('knight').style.left)
-        if (left < 400) {
+        if (left < 600) {
           if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             !this.gameStarted && this.startGame()
           }
         } else {
           this.stand = false
           this.fight = true
-          setTimeout(() => { this.knightDead = true }, 2000)
+          this.roar.play()
         }
       })
     }
@@ -104,6 +110,7 @@ export default {
     right: 0;
     margin: auto;
     overflow: hidden;
+    border: 10px solid #000;
   }
   .loading, .before-game, .result {
     position: absolute;

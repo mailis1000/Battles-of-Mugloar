@@ -6,8 +6,8 @@
       left: left, 
       stand, 
       walk,
-      umbrella: this.weather.code[0] === 'HVA',
-      die: !this.knightAlive
+      umbrella: weather.code[0] === 'HVA',
+      die: !knightAlive
     }"
   />
 </template>
@@ -38,7 +38,7 @@ export default {
       window.addEventListener('keydown', (event) => {
         var element = document.getElementById('knight')
         var left = parseInt(element.style.left)
-        if (left < 400) {
+        if (left < 600) {
           if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             (this.audio.paused || !this.audio.duration < 0) && this.audio.play()
             this.stand = false
@@ -57,12 +57,18 @@ export default {
             element.style.left = left + 3 + 'px'
             this.left = false
           }
+          if (this.weather.code[0] === 'SRO') {
+            setTimeout(() => { this.knightKill() }, 6000)
+          }
         } else {
-          this.stand = false
-          this.walk = false
-          this.killKnight()
+          this.knightKill()
         }
       })
+    },
+    knightKill () {
+      this.stand = false
+      this.walk = false
+      this.killKnight()
     }
   }
 }

@@ -9,8 +9,8 @@ export default {
 <style lang="scss" scoped>
   #dragon {
     position: absolute;
-    right: 0;
-    bottom: 40px;
+    right: 80px;
+    bottom: 30px;
     width: 554px;
     height: 245px;
     animation-play-state: running;

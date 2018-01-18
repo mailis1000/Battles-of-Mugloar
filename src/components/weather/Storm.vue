@@ -1,5 +1,5 @@
 <template>
-  <div :class="{lightning: this.lightning}" class="thunder">
+  <div :class="{lightning: lightning}" class="thunder">
     <canvas id="canvas1"></canvas>
     <canvas id="canvas2"></canvas>
     <canvas id="canvas3"></canvas>
@@ -7,10 +7,20 @@
 </template>
 <script>
   import thunder from './../../assets/sound/thunder.mp3'
+  import rain from './../../assets/sound/rain.mp3'
 
   export default {
     name: 'storm',
-    mounted () { // TODO: Convert this as a normal Vue component
+    data () {
+      return {
+        audio: new Audio(rain)
+      }
+    },
+    mounted () {
+      this.audio.loop = true
+      this.audio.play()
+
+      // TODO: Convert this as a normal Vue component
       var canvas1 = document.getElementById('canvas1')
       var canvas2 = document.getElementById('canvas2')
       var canvas3 = document.getElementById('canvas3')
@@ -294,7 +304,7 @@ canvas {
   z-index: 100;
 }
 
-$color1: rgba(34, 34, 34, .6);
+$color1: rgba(34, 34, 34, .8);
 $color2: rgba(255, 255, 255, .3);
 .thunder {
   @at-root {

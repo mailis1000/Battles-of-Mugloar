@@ -6,7 +6,9 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    weather: {},
+    weather: {
+      message: []
+    },
     dragon: {},
     knight: {},
     response: {},
@@ -14,6 +16,9 @@ const store = new Vuex.Store({
     gameStarted: false,
     storyEnd: false,
     knightAlive: true
+  },
+  getters: {
+    getWeatherMessage: state => state.weather.message[0]
   },
   actions: {
     getData: ({commit}, payload) => {
