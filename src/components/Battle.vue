@@ -133,10 +133,4 @@ export default {
     right: 0;
     bottom: 0;
   }
-  @media(max-width:1260px) {
-    .container {
-      width: 800px;
-      height: 400px;
-    }
-  }
 </style>
