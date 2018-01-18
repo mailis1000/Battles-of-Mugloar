@@ -21,6 +21,13 @@ export default {
 body {
   margin: 0;
   font-size: 16px;
+  overflow: hidden;
+}
+body:after{
+  position: absolute; 
+  z-index: -1;
+  width: 0;
+  content: url('./assets/fighters/drag-attack.png') url('./assets/fighters/die.png') url('./assets/fighters/walk.png');
 }
 #app {
   height: 100vh;

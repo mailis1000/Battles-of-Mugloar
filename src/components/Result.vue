@@ -37,30 +37,28 @@ export default {
     width: auto;
     opacity: 0;
     animation: animResult 4.0s forwards;
-  }
-  ul {
-    list-style: none;
-    padding: 0;
-    font-size: 16px;
-    li span {
-      width: 150px;
-      display: inline-block;
+    ul {
+      list-style: none;
+      padding: 0;
+      font-size: 16px;
+      li span {
+        width: 150px;
+        display: inline-block;
+        text-transform: uppercase;
+      }
     }
-  }
-  ul, h2 {
-    text-align: left;
-    span {
-      text-transform: uppercase;
+    ul, h2 {
+      text-align: left;
     }
-  }
-  .fighters {
-    padding: 0 120px;
-    width: auto;
-    height: 100%;
-  }
-  .fighter {
-    width: 50%;
-    float: left;
+    .fighters {
+      padding: 0 120px;
+      width: auto;
+      height: 100%;
+      .fighter {
+        width: 50%;
+        float: left;
+      }
+    }
   }
   @keyframes animResult {
     0% { 

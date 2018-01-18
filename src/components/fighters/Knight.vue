@@ -58,14 +58,14 @@ export default {
             this.left = false
           }
           if (this.weather.code === 'SRO') {
-            setTimeout(() => { this.knightKill() }, 6000)
+            setTimeout(() => { this.kill() }, 6000)
           }
         } else {
-          this.knightKill()
+          this.kill()
         }
       })
     },
-    knightKill () {
+    kill () {
       this.stand = false
       this.walk = false
       this.killKnight()
