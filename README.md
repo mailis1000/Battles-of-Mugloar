@@ -20,4 +20,4 @@ npm run build --report
 
 ## Demo site
 
-[a link](http://dragons.netlify.com/#/)
+[https://dragons.netlify.com/](https://dragons.netlify.com/)
