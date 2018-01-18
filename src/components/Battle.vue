@@ -124,7 +124,7 @@ export default {
     background-color: rgba(0, 0, 0, 0.5);
   }
   .vue-loading-container {
-    position: absolute;
+    position: absolute!important; /* Rewriting vue-loader component :( */
     width: 60px;
     height: 60px;
     margin: auto;
