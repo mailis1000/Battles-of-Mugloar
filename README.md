@@ -21,3 +21,5 @@ npm run build --report
 ## Demo site
 
 [https://dragons.netlify.com/](https://dragons.netlify.com/)
+
+For the best game experience you should turn your speakers on and display width should be at least 1200+px. Google chrome is recommended.
