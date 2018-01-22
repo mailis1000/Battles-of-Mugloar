@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{'long-dry' : weather.code === 'T E' && gameStarted}">
     <div class="loading" v-if="!loaded">
       <vue-loading spinner="circles"></vue-loading>
     </div>
@@ -11,7 +11,6 @@
       <div v-else>
         <storm v-if="weather.code === 'SRO'"></storm>
         <fog v-if="weather.code === 'FUNDEFINEDG'"></fog>
-        <long-dry v-if="weather.code === 'T E'"></long-dry>
         <flood v-if="weather.code === 'HVA'"></flood>
       </div>
       <knight></knight>
@@ -31,7 +30,6 @@ import Dragon from './fighters/Dragon'
 
 import Storm from './weather/Storm'
 import Fog from './weather/Fog'
-import LongDry from './weather/LongDry'
 import Flood from './weather/Flood'
 
 import Story from './Story'
@@ -61,7 +59,6 @@ export default {
     Dragon,
     Storm,
     Fog,
-    LongDry,
     Flood,
     Story,
     Help,
@@ -132,5 +129,9 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
+  }
+  .long-dry {
+    -webkit-filter: sepia(1);
+    filter: sepia(1);
   }
 </style>
