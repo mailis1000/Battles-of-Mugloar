@@ -7,7 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     weather: {
-      message: []
+      message: 'Loading'
     },
     dragon: {},
     knight: {},
@@ -22,7 +22,6 @@ const store = new Vuex.Store({
   },
   actions: {
     getData: ({commit}, payload) => {
-      console.log('axios')
       axios.get(`https://obscure-badlands-97816.herokuapp.com/`)
       .then(response => {
         commit('GET_DATA', response.data)
